@@ -14,8 +14,8 @@ const TestScreen = () => {
   const getForecast = async () => {
       // Consultar la API de WheatherAPI
       try {
-        const response = await backend.get(`/forecast.json?key=${apiKey}&q=London`);
-        console.log(response.data);
+        const response = await backend.get(`/forecast.json?key=${apiKey}&q=London&days=1`);
+        console.log(response.data); 
         setForecast(response.data);
       } catch (error) {
         setError(true);
