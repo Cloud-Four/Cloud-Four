@@ -4,9 +4,6 @@ const ENV = {
     dev: {
         apiUrl: "https://api.weatherapi.com/v1/",
         apiKey: "142c000a0ec642a5a7620649200211"
-       /* apiImageUrl: "https://image.tmdb.org/t/p/",
-        apiImageSize: "w780"*/
-
     }
 };
 
