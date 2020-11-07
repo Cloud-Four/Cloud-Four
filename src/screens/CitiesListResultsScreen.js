@@ -58,8 +58,7 @@ const CitiesListResults = ({ route, navigation }) => {
                 <Card>
                   <CardItem>
                     <Body>
-                      <H3>{item.name}</H3>
-                      
+                      <H3>{item.name}</H3>     
                     </Body>
                   </CardItem>
                 </Card>
