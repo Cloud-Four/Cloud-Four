@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import CitiesListResultsScreen from "./src/screens/CitiesListResultsScreen";
+import mainScreen from "./src/screens/mainScreen";
+import WheatherInfoScreen from "./src/screens/WheatherInfoScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+// Crear nuestra navegación basada en stack (pilas)
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="mainScreen">
+        <Stack.Screen name="mainScreen" component={mainScreen} />
+        <Stack.Screen name="citiesListResults" component={CitiesListResultsScreen} />
+        <Stack.Screen name="wheatherInfo" component={WheatherInfoScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
