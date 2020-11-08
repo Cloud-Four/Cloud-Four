@@ -22,7 +22,6 @@ const CitiesListResults = ({ route, navigation }) => {
       // Consultar la API de WheatherAPI
       try {
         const response = await backend.get(`${apiUrl}search.json?key=${apiKey}&q=${search}`);
-        console.log(response.data); 
         setCities(response.data);
       } catch (error) {
         setError(true);
