@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, Image, StyleSheet } from "react-native";
 import { Content, Text, H1, Spinner, Card } from "native-base";
 import backend from "../api/backend";
 import getEnvVars from "../../enviroment";
@@ -37,7 +37,21 @@ const WheatherInfo = ({route, navigation}) => {
           </Content>
         )
       }
+      // Variable que captura el link de la imagen
+      let linkImage = `http:${cities.current.condition.icon}`;
 
+      // variable que captura el día puede ser 1 o 0
+      // 1 es día, 0 es noche
+      let day = cities.current.is_day;
+            
+      if(day === 1){
+        // cambia el valor de 1 por día
+        day = "Dia";
+        
+      }else{
+        // cambia el valor de 0 a noche
+        day = "Noche";
+      }
       return (
         <Content>
           <H1>{cities.location.name}</H1>
@@ -49,12 +63,24 @@ const WheatherInfo = ({route, navigation}) => {
             <Text>Sensación termica: {cities.current.feelslike_c} C°</Text>
             <Text>Temp Máxima: {cities.forecast.forecastday[0]['day']['maxtemp_c']} C° </Text>
             <Text>Temp Mínima: {cities.forecast.forecastday[0]['day']['mintemp_c']} C°</Text>
+            <Text>Día: {day}</Text>
+            <Image source={{uri: linkImage}} style={{width: 64, height: 64}}/>
           </Card>
         </Content>
-      );
-
-      
-      
+      );       
 }
+// Estilos de nuestra pantalla
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageURL: {
+    flex: 1,
+    width: 64,
+    height: 64
+  }
+});
 
 export default WheatherInfo;
