@@ -9,11 +9,10 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 const { apiUrl, apiKey } = getEnvVars();
-const { width, height } = Dimensions.get("window");
 
 const CitiesListResults = ({ route, navigation }) => {
   const [cities, setCities] = useState(null);
-  const [error, setError] = useState(false);
+  const [setError] = useState(false);
   const { search } = route.params;
 
  
