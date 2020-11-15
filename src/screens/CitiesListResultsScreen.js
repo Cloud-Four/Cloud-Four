@@ -21,13 +21,17 @@ const CitiesListResults = ({ route, navigation }) => {
       // Consultar la API de WheatherAPI
       try {
         const response = await backend.get(`${apiUrl}search.json?key=${apiKey}&q=${search}`);
+<<<<<<< HEAD
+=======
+        //console.log(response.data); 
+>>>>>>> develop
         setCities(response.data);
       } catch (error) {
         setError(true);
       }
   }
 
-  // 
+  // Hook de efecto
   useEffect(() => {
     getCitiesList();
   }, []);

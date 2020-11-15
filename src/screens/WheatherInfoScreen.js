@@ -7,7 +7,11 @@ import * as Font from "expo-font";
 
 const { apiUrl, apiKey } = getEnvVars();
 
+<<<<<<< HEAD
 const WheatherInfo = ({route, navigation}) => {
+=======
+const WeatherInfo = ({route, navigation}) => {
+>>>>>>> develop
   // Obtener fuentes para la pantalla
   // https://www.youtube.com/watch?v=MTkhqml1KM4&t=340s
   const [fontsLoaded] = useState(false);
@@ -26,7 +30,11 @@ const WheatherInfo = ({route, navigation}) => {
   const [cities, setCities] = useState(null);
   const [error, setError] = useState(false);
 
+<<<<<<< HEAD
   const getWheaterInfo = async () => { 
+=======
+  const getWeatherInfo = async () => { 
+>>>>>>> develop
     try {
       const response = await backend.get(`${apiUrl}forecast.json?key=${apiKey}&q=${name}&days=1&lang=es`);
       console.log(response.data);
@@ -38,7 +46,11 @@ const WheatherInfo = ({route, navigation}) => {
 
 
   useEffect(() => {
+<<<<<<< HEAD
     getWheaterInfo();
+=======
+    getWeatherInfo();
+>>>>>>> develop
   }, []);
 
   if (!cities) {
@@ -117,8 +129,11 @@ const WheatherInfo = ({route, navigation}) => {
     code = "1000-1";
   }
     
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> develop
   return (
     <Content>
       <ImageBackground source ={backgroundImage[code]} style={{width: '100%', height: '100%', flex:1}}>
@@ -197,4 +212,8 @@ const styles = StyleSheet.create({
 
 });
 
+<<<<<<< HEAD
 export default WheatherInfo;
+=======
+export default WeatherInfo;
+>>>>>>> develop
