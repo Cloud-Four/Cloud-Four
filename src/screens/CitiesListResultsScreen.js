@@ -1,11 +1,12 @@
 // Importar los módulos necesarios
-import { Container, Spinner, H1, Card, CardItem, Body, H3  } from "native-base";
+import { Container, Spinner, H1, Card, CardItem, Body, H3, Header  } from "native-base";
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
 import backend from "../api/backend";
 import getEnvVars from "../../enviroment";
 import { FlatList } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useFonts } from "expo-font";
 
 
 const { apiUrl, apiKey } = getEnvVars();
@@ -15,16 +16,17 @@ const CitiesListResults = ({ route, navigation }) => {
   const [setError] = useState(false);
   const { search } = route.params;
 
- 
+    // Obtener fuentes para la pantalla
+    // https://www.youtube.com/watch?v=MTkhqml1KM4&t=340s
+    let [fontsLoaded] = useFonts({
+      'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
+      'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
+    });
 
   const getCitiesList = async () => {
       // Consultar la API de WheatherAPI
       try {
         const response = await backend.get(`${apiUrl}search.json?key=${apiKey}&q=${search}`);
-<<<<<<< HEAD
-=======
-        //console.log(response.data); 
->>>>>>> develop
         setCities(response.data);
       } catch (error) {
         setError(true);
@@ -36,7 +38,7 @@ const CitiesListResults = ({ route, navigation }) => {
     getCitiesList();
   }, []);
     
-  if (!cities) {
+  if (!cities ||!fontsLoaded) {
     return (
       <View style={{flex: 1, justifyContent: "center"}}>
         <Spinner color="blue" />
@@ -47,9 +49,9 @@ const CitiesListResults = ({ route, navigation }) => {
   
   return(
     <Container>
-      <View><H1>Búsquedas encontradas:  </H1>
-      </View>
-      <FlatList
+      <Header style={styles.titleContainer}><Text style={styles.Title}>Búsquedas encontradas:</Text>
+      </Header>
+      <FlatList style={styles.background}
         data={cities}
         keyExtractor={(item) => item.name}
         ListEmptyComponent={<Text>¡No se han encontrado ciudades!</Text>}
@@ -58,9 +60,9 @@ const CitiesListResults = ({ route, navigation }) => {
             <View>
              <TouchableOpacity onPress={() => navigation.navigate("wheatherInfo", {name: item.name})}>
                 <Card>
-                  <CardItem>
+                  <CardItem style={{backgroundColor: "#688EA6"}}>
                     <Body>
-                      <H3>{item.name}</H3>     
+                      <H3 style={styles.lyric}>{item.name}</H3>     
                     </Body>
                   </CardItem>
                 </Card>
@@ -77,19 +79,23 @@ const CitiesListResults = ({ route, navigation }) => {
 
 // Estilos de nuestra pantalla
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  titleContainer: {
+    backgroundColor:"#021D40",
+    alignItems:"center",
   },
-  input: {
-    margin: 15,
+  Title: {
+    color: "#F7F3EC",
+    fontFamily: "Goldman-Bold",
+    fontSize: 28,
+    paddingTop: "1%",
   },
-  searchInput: {
-    flex: 1,
-    flexDirection: "column",
-    marginTop: 10,
-    marginRight: 15,
+  background: {
+    backgroundColor: "#325A73",
+    padding: "2%",
+  },
+  lyric:{
+    color: "#F7F3EC",
+    fontFamily: "Goldman-Regular",
   }
 });
 

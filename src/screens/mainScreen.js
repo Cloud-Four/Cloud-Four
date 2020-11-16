@@ -112,7 +112,9 @@ const MainScreen = ( { navigation }) => {
       const backgroundImage = {
         "1000-1": require("../../assets/background/1000-1.jpg"),
         "1000": require("../../assets/background/1000.jpg"),
+        "1003-1": require("../../assets/background/1003-1.jpg"),
         "1003": require("../../assets/background/1003.jpg"),
+        "1006-1": require("../../assets/background/1006-1.jpg"),
         "1006": require("../../assets/background/1006.jpg"),
         "1009": require("../../assets/background/1009.jpg"),
         "1030": require("../../assets/background/1030.jpg"),
@@ -176,24 +178,90 @@ const MainScreen = ( { navigation }) => {
       let daySIG = Siguatepeque.current.is_day;
       let dayELP = ElParaiso.current.is_day;
       let dayCOM = Comayagua.current.is_day;
-      if(day === 0 && code === 1000){ 
+      if(day === 0){ 
         // El fondo de pantalla muestra una noche estrellada
-        code = "1000-1";
+        if(code === 1000)
+        {
+          code = "1000-1";
+        }
+        if(code === 1003)
+        {
+          code = "1003-1";
+        }
+        if(code === 1006)
+        {
+          code = "1006-1";
+        }
       } 
-      if(daySPS === 0 && sps === 1000){
-        sps = "1000-1";
+      if(daySPS === 0){
+        if(sps === 1000)
+        {
+          sps = "1000-1";
+        }
+        if(sps === 1003)
+        {
+          sps = "1003-1";
+        }
+        if(sps === 1006)
+        {
+          sps = "1006-1";
+        }
       } 
-      if(dayINT === 0 && int === 1000){
-        int = "1000-1";
+      if(dayINT === 0){
+        if(int === 1000)
+        {
+          int = "1000-1";
+        }
+        if(int === 1003)
+        {
+          int = "1003-1";
+        }
+        if(int === 1006)
+        {
+          int = "1006-1";
+        }
       } 
-      if(daySIG === 0 && sigua === 1000){
-        sigua = "1000-1";
+      if(daySIG === 0){
+        if(sigua === 1000)
+        {
+          sigua = "1000-1";
+        }
+        if(sigua === 1003)
+        {
+          sigua = "1003-1";
+        }
+        if(sigua === 1006)
+        {
+          sigua = "1006-1";
+        }
       } 
       if(dayELP === 0 && elpar === 1000){
-        elpar = "1000-1";
+        if(elpar === 1000)
+        {
+          elpar = "1000-1";
+        }
+        if(elpar === 1003)
+        {
+          elpar = "1003-1";
+        }
+        if(elpar === 1006)
+        {
+          elpar = "1006-1";
+        }
       } 
       if(dayCOM === 0 && coma === 1000){
-        coma = "1000-1";
+        if(coma === 1000)
+        {
+          coma = "1000-1";
+        }
+        if(coma === 1003)
+        {
+          coma = "1003-1";
+        }
+        if(coma === 1006)
+        {
+          coma = "1006-1";
+        }
       }
       
  
