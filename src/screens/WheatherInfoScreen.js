@@ -3,22 +3,16 @@ import { Dimensions, ImageBackground, View, StyleSheet, Image } from "react-nati
 import { Content, Text, H1, Spinner, Card, Row } from "native-base";
 import backend from "../api/backend";
 import getEnvVars from "../../enviroment";
-import * as Font from "expo-font";
+import { useFonts } from "expo-font";
 
 const { apiUrl, apiKey } = getEnvVars();
 
-const WeatherInfo = ({route, navigation}) => {
+const WheatherInfo = ({route, navigation}) => {
   // Obtener fuentes para la pantalla
   // https://www.youtube.com/watch?v=MTkhqml1KM4&t=340s
-  const [fontsLoaded] = useState(false);
-
-  useEffect(() => {
-    if(!fontsLoaded){
-      Font.loadAsync({
-        'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
-        'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
-      });
-    }
+  let [fontsLoaded] = useFonts({
+    'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
+    'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
   });
 
   // Obtener el nombre del lugar
@@ -26,10 +20,9 @@ const WeatherInfo = ({route, navigation}) => {
   const [cities, setCities] = useState(null);
   const [error, setError] = useState(false);
 
-  const getWeatherInfo = async () => { 
+  const getWheaterInfo = async () => { 
     try {
       const response = await backend.get(`${apiUrl}forecast.json?key=${apiKey}&q=${name}&days=1&lang=es`);
-      console.log(response.data);
       setCities(response.data);
     } catch(error) {
       setError(true);
@@ -38,10 +31,10 @@ const WeatherInfo = ({route, navigation}) => {
 
 
   useEffect(() => {
-    getWeatherInfo();
+    getWheaterInfo();
   }, []);
 
-  if (!cities) {
+  if (!cities ||!fontsLoaded) {
     return (
       <Content>
         <Text>{name}1</Text>
@@ -59,7 +52,9 @@ const WeatherInfo = ({route, navigation}) => {
   const backgroundImage = {
     "1000-1": require("../../assets/background/1000-1.jpg"),
     "1000": require("../../assets/background/1000.jpg"),
+    "1003-1": require("../../assets/background/1003-1.jpg"),
     "1003": require("../../assets/background/1003.jpg"),
+    "1006-1": require("../../assets/background/1006-1.jpg"),
     "1006": require("../../assets/background/1006.jpg"),
     "1009": require("../../assets/background/1009.jpg"),
     "1030": require("../../assets/background/1030.jpg"),
@@ -112,11 +107,24 @@ const WeatherInfo = ({route, navigation}) => {
   // variable que captura el día puede ser 1 o 0
   // 1 es día, 0 es noche
   let day = cities.current.is_day;
-  if(day === 0 && code === 1000){
+  if(day === 0){
     // El fondo de pantalla muestra una noche estrellada
-    code = "1000-1";
+    if(code === 1000)
+    {
+      code = "1000-1";
+    }
+    if(code === 1003)
+    {
+      code = "1003-1";
+    }
+    if(code === 1006)
+    {
+      code = "1006-1";
+    }
   }
     
+
+
   return (
     <Content>
       <ImageBackground source ={backgroundImage[code]} style={{width: '100%', height: '100%', flex:1}}>
@@ -195,4 +203,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default WeatherInfo;
+export default WheatherInfo;
