@@ -11,11 +11,11 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 const { apiUrl, apiKey } = getEnvVars();
 const MainScreen = ( { navigation }) => {
     // Obtener fuentes para la pantalla
-    // https://www.youtube.com/watch?v=MTkhqml1KM4&t=340s
     let [fontsLoaded] = useFonts({
       'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
       'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
     });
+
     const [search, setSearch] = useState("");
     const [searchError, setSearchError] = useState(false);
     const [Tegucigalpa, setTegucigalpa] = useState(null);
