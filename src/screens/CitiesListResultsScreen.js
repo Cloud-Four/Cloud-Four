@@ -17,7 +17,6 @@ const CitiesListResults = ({ route, navigation }) => {
   const { search } = route.params;
 
     // Obtener fuentes para la pantalla
-    // https://www.youtube.com/watch?v=MTkhqml1KM4&t=340s
     let [fontsLoaded] = useFonts({
       'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
       'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
@@ -40,8 +39,8 @@ const CitiesListResults = ({ route, navigation }) => {
     
   if (!cities ||!fontsLoaded) {
     return (
-      <View style={{flex: 1, justifyContent: "center"}}>
-        <Spinner color="blue" />
+      <View style={{flex: 1, justifyContent: "center", backgroundColor:"#325A73"}}>
+        <Spinner color="yellow"/>
       </View>
     )
   }

@@ -103,9 +103,9 @@ const MainScreen = ( { navigation }) => {
       
       if (!Tegucigalpa||!Intibuca||!Siguatepeque||!SanPedroSula||!ElParaiso||!Comayagua||!fontsLoaded){
         return (
-          <Content>
-            <Spinner color="red"/>
-          </Content>
+          <View style={{flex: 1, justifyContent: "center", backgroundColor:"#325A73"}}>
+            <Spinner color="yellow"/>
+          </View>
         )
       }
 

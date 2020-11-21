@@ -6,10 +6,10 @@ import getEnvVars from "../../enviroment";
 import { useFonts } from "expo-font";
 
 const { apiUrl, apiKey } = getEnvVars();
+const { width, height } = Dimensions.get("window");
 
 const WheatherInfo = ({route, navigation}) => {
   // Obtener fuentes para la pantalla
-  // https://www.youtube.com/watch?v=MTkhqml1KM4&t=340s
   let [fontsLoaded] = useFonts({
     'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
     'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
@@ -36,10 +36,9 @@ const WheatherInfo = ({route, navigation}) => {
 
   if (!cities ||!fontsLoaded) {
     return (
-      <Content>
-        <Text>{name}1</Text>
-        <Spinner color="blue"/>
-      </Content>
+      <View style={{flex: 1, justifyContent: "center", backgroundColor:"#325A73"}}>
+        <Spinner color="yellow"/>
+      </View>
     )
   }
 
@@ -126,8 +125,8 @@ const WheatherInfo = ({route, navigation}) => {
 
 
   return (
-    <Content>
-      <ImageBackground source ={backgroundImage[code]} style={{width: '100%', height: '100%', flex:1}}>
+    <Content style={{}}>
+      <ImageBackground source ={backgroundImage[code]} style={{ width: width, height: height}}>
         <Text style={styles.Title}>{cities.location.name}</Text>
         <View style={styles.pricipalContainer}>
           <Image source={{uri: linkImage}} style={{width: 120, height: 120}}/>
@@ -181,6 +180,7 @@ const styles = StyleSheet.create({
   },
   secundaryContainer:{
     flex: 1,
+    alignItems: "center",
     flexDirection: "row",
     marginTop: '5%',
     marginLeft: '2%',

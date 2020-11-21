@@ -4,7 +4,6 @@ import mainScreen from "./src/screens/mainScreen";
 import WheatherInfoScreen from "./src/screens/WheatherInfoScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Title } from "native-base";
 
 // Crear nuestra navegación basada en stack (pilas)
 const Stack = createStackNavigator();
