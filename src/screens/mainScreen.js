@@ -77,16 +77,16 @@ const MainScreen = ( { navigation }) => {
       };
 
       // Verifica si el usuario ingresa información en el input de búsqueda
-     const handlerSearch = () => {
-      if (!search)
-        setSearchError(true);
-      else
+    const handlerSearch = () =>{
+      if (!search) {
+        setSearchError(true)
+      }else
       {
-        navigation.navigate("citiesListResults", { search })
+        navigation.navigate("citiesListResults", {search})
+        setSearch("");
         setSearchError(false);
       }
-    }
-  
+    };
      // Remueve el valor de error del input de búsqueda si el usuario ingresa información  
       useEffect(() => {
         
