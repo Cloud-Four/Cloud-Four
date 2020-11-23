@@ -1,9 +1,20 @@
-import { Container, Header, Item, Input, Icon, Button, H1, H2, Content, Spinner, Card, Text, CardItem } from "native-base";
+import {  Container, 
+          Header, 
+          Item, 
+          Input, 
+          Icon, 
+          Button, 
+          H2, 
+          Content, 
+          Spinner, 
+          Card, 
+          Text, 
+          CardItem 
+        } from "native-base";
 import { StyleSheet, Image, View, ImageBackground } from "react-native";
 import React, { useEffect, useState } from "react";
 import backend from "../api/backend";
 import getEnvVars from "../../enviroment";
-import Constants from "expo-constants";
 import { useFonts } from "expo-font";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -11,11 +22,14 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 const { apiUrl, apiKey } = getEnvVars();
 const MainScreen = ( { navigation }) => {
     // Obtener fuentes para la pantalla
-    // https://www.youtube.com/watch?v=MTkhqml1KM4&t=340s
+    // link de la documentación utilizada
+    // https://docs.expo.io/guides/using-custom-fonts/
+
     let [fontsLoaded] = useFonts({
-      'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
-      'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
-    });
+        'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
+        'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
+      });
+
     const [search, setSearch] = useState("");
     const [searchError, setSearchError] = useState(false);
     const [Tegucigalpa, setTegucigalpa] = useState(null);
@@ -27,7 +41,8 @@ const MainScreen = ( { navigation }) => {
     const [error, setError] = useState(false);
  
 
-    const getWeaterInfoTegucigalpa = async () => { 
+      // Obtiene la información de la api correspondiente a Tegucigalpa
+      const getWeaterInfoTegucigalpa = async () => { 
         try {
           const t = await backend.get(`${apiUrl}forecast.json?key=${apiKey}&q=Tegucigalpa&days=1&lang=es`);
           setTegucigalpa(t.data);       
@@ -35,6 +50,7 @@ const MainScreen = ( { navigation }) => {
           setError(true);
         }
       };
+      // Obtiene la información de la api correspondiente a Intibucá
       const getWeatherInfoIntibuca = async () => { 
         try {
           const t = await backend.get(`${apiUrl}forecast.json?key=${apiKey}&q=Intibuca&days=1&lang=es`);
@@ -43,6 +59,7 @@ const MainScreen = ( { navigation }) => {
           setError(true);
         }
       };
+      // Obtiene la información de la api correspondiente a Siguatepeque
       const getWeatherInfoSiguatepeque = async () => { 
         try {
           const t = await backend.get(`${apiUrl}forecast.json?key=${apiKey}&q=Siguatepeque&days=1&lang=es`);
@@ -51,6 +68,7 @@ const MainScreen = ( { navigation }) => {
           setError(true);
         }
       };
+      // Obtiene la información de la api correspondiente a San Pedro Sula
       const getWeaterInfoSanPedroSula = async () => { 
         try {
           const t = await backend.get(`${apiUrl}forecast.json?key=${apiKey}&q=San Pedro Sula&days=1&lang=es`);
@@ -59,6 +77,7 @@ const MainScreen = ( { navigation }) => {
           setError(true);
         }
       };
+      // Obtiene la información de la api correspondiente a El Paraíso
       const getWeatherInfoElParaiso = async () => { 
         try {
           const t = await backend.get(`${apiUrl}forecast.json?key=${apiKey}&q=El Paraiso&days=1&lang=es`);
@@ -67,6 +86,7 @@ const MainScreen = ( { navigation }) => {
           setError(true);
         }
       };
+      // Obtiene la información de la api correspondiente a Comayagua
       const getWeatherInfoComayagua = async () => { 
         try {
           const t = await backend.get(`${apiUrl}forecast.json?key=${apiKey}&q=Comayagua&days=1&lang=es`);
@@ -83,13 +103,16 @@ const MainScreen = ( { navigation }) => {
       }else
       {
         navigation.navigate("citiesListResults", {search})
+        // Borra la búsqueda anterior y coloca el espacio vacío
         setSearch("");
         setSearchError(false);
       }
     };
-     // Remueve el valor de error del input de búsqueda si el usuario ingresa información  
+
+
+     // Remueve el valor de error del input de búsqueda si el usuario ingresa información
+     // y llama a los hooks correspondientes para obtener la información.  
       useEffect(() => {
-        
         getWeaterInfoTegucigalpa();
         getWeatherInfoIntibuca();
         getWeatherInfoSiguatepeque();
@@ -100,7 +123,7 @@ const MainScreen = ( { navigation }) => {
       }, [search]);
   
      
-      
+     // Pantalla de espera, obteniendo la información de la api y de las fuentes. 
       if (!Tegucigalpa||!Intibuca||!Siguatepeque||!SanPedroSula||!ElParaiso||!Comayagua||!fontsLoaded){
         return (
           <View style={{flex: 1, justifyContent: "center", backgroundColor:"#325A73"}}>
@@ -109,6 +132,7 @@ const MainScreen = ( { navigation }) => {
         )
       }
 
+      // Enum encargado de almacenar para después mostrar las imágenes de fondo
       const backgroundImage = {
         "1000-1": require("../../assets/background/1000-1.jpg"),
         "1000": require("../../assets/background/1000.jpg"),
@@ -163,104 +187,116 @@ const MainScreen = ( { navigation }) => {
         "1282": require("../../assets/background/1282.jpg"),
       }
 
-      let code = Tegucigalpa.current.condition.code ;
-      let sps= SanPedroSula.current.condition.code ;
-      let int= Intibuca.current.condition.code ;
-      let sigua= Siguatepeque.current.condition.code ;
-      let elpar= ElParaiso.current.condition.code ;
-      let coma= Comayagua.current.condition.code ;
+      // Variables que capturan el código de la condición del día
+      let codeTegucigalpa = Tegucigalpa.current.condition.code ;
+      let codeSanPedroSula= SanPedroSula.current.condition.code ;
+      let codeIntibuca= Intibuca.current.condition.code ;
+      let codeSiguatepeque= Siguatepeque.current.condition.code ;
+      let codeElParaiso= ElParaiso.current.condition.code ;
+      let codeComayagua= Comayagua.current.condition.code ;
     
       // variable que captura el día puede ser 1 o 0
       // 1 es día, 0 es noche
-      let day = Tegucigalpa.current.is_day;
-      let daySPS = SanPedroSula.current.is_day;
-      let dayINT = Intibuca.current.is_day;
-      let daySIG = Siguatepeque.current.is_day;
-      let dayELP = ElParaiso.current.is_day;
-      let dayCOM = Comayagua.current.is_day;
-      if(day === 0){ 
+      let dayTegucigalpa = Tegucigalpa.current.is_day;
+      let daySanPedroSula = SanPedroSula.current.is_day;
+      let dayIntibuca = Intibuca.current.is_day;
+      let daySiguatepeque = Siguatepeque.current.is_day;
+      let dayElParaiso = ElParaiso.current.is_day;
+      let dayComayagua = Comayagua.current.is_day;
+
+
+      // Condiciones necesarias para mostrar backgrounds dinamicos,
+      // es decir, que el fondo cambiará según el día que puede ser:
+      // día o noche, de esa forma elegirá el fondo referente al estado
+      // del día.
+      if(dayTegucigalpa === 0){ 
         // El fondo de pantalla muestra una noche estrellada
-        if(code === 1000)
+        if(codeTegucigalpa === 1000)
         {
-          code = "1000-1";
+          codeTegucigalpa = "1000-1";
         }
-        if(code === 1003)
+        if(codeTegucigalpa === 1003)
         {
-          code = "1003-1";
+          codeTegucigalpa = "1003-1";
         }
-        if(code === 1006)
+        if(codeTegucigalpa === 1006)
         {
-          code = "1006-1";
-        }
-      } 
-      if(daySPS === 0){
-        if(sps === 1000)
-        {
-          sps = "1000-1";
-        }
-        if(sps === 1003)
-        {
-          sps = "1003-1";
-        }
-        if(sps === 1006)
-        {
-          sps = "1006-1";
+          codeTegucigalpa = "1006-1";
         }
       } 
-      if(dayINT === 0){
-        if(int === 1000)
+      if(daySanPedroSula === 0){
+        // El fondo de pantalla muestra una noche estrellada
+        if(codeSanPedroSula === 1000)
         {
-          int = "1000-1";
+          codeSanPedroSula = "1000-1";
         }
-        if(int === 1003)
+        if(codeSanPedroSula === 1003)
         {
-          int = "1003-1";
+          codeSanPedroSula = "1003-1";
         }
-        if(int === 1006)
+        if(codeSanPedroSula === 1006)
         {
-          int = "1006-1";
-        }
-      } 
-      if(daySIG === 0){
-        if(sigua === 1000)
-        {
-          sigua = "1000-1";
-        }
-        if(sigua === 1003)
-        {
-          sigua = "1003-1";
-        }
-        if(sigua === 1006)
-        {
-          sigua = "1006-1";
+          codeSanPedroSula = "1006-1";
         }
       } 
-      if(dayELP === 0 && elpar === 1000){
-        if(elpar === 1000)
+      if(dayIntibuca === 0){
+        // El fondo de pantalla muestra una noche estrellada
+        if(codeIntibuca === 1000)
         {
-          elpar = "1000-1";
+          codeIntibuca = "1000-1";
         }
-        if(elpar === 1003)
+        if(codeIntibuca === 1003)
         {
-          elpar = "1003-1";
+          codeIntibuca = "1003-1";
         }
-        if(elpar === 1006)
+        if(codeIntibuca === 1006)
         {
-          elpar = "1006-1";
+          codeIntibuca = "1006-1";
         }
       } 
-      if(dayCOM === 0 && coma === 1000){
-        if(coma === 1000)
+      if(daySiguatepeque === 0){
+        // El fondo de pantalla muestra una noche estrellada
+        if(codeSiguatepeque === 1000)
         {
-          coma = "1000-1";
+          codeSiguatepeque = "1000-1";
         }
-        if(coma === 1003)
+        if(codeSiguatepeque === 1003)
         {
-          coma = "1003-1";
+          codeSiguatepeque = "1003-1";
         }
-        if(coma === 1006)
+        if(codeSiguatepeque === 1006)
         {
-          coma = "1006-1";
+          codeSiguatepeque = "1006-1";
+        }
+      } 
+      if(dayElParaiso === 0){
+        // El fondo de pantalla muestra una noche estrellada
+        if(codeElParaiso === 1000)
+        {
+          codeElParaiso = "1000-1";
+        }
+        if(codeElParaiso === 1003)
+        {
+          codeElParaiso = "1003-1";
+        }
+        if(codeElParaiso === 1006)
+        {
+          codeElParaiso = "1006-1";
+        }
+      } 
+      if(dayComayagua === 0){
+        // El fondo de pantalla muestra una noche estrellada
+        if(codeComayagua === 1000)
+        {
+          codeComayagua = "1000-1";
+        }
+        if(codeComayagua === 1003)
+        {
+          codeComayagua = "1003-1";
+        }
+        if(codeComayagua === 1006)
+        {
+          codeComayagua = "1006-1";
         }
       }
       
@@ -273,120 +309,127 @@ const MainScreen = ( { navigation }) => {
   let linkImageSPS = `http:${SanPedroSula.current.condition.icon}`;
   let linkImageComayagua = `http:${Comayagua.current.condition.icon}`;
 
+
+    /* Se renderiza la pantalla principal mostrando un header que contiene una barra de búsqueda
+      con su respectivo botón.
+      Al hacer una búsqueda abre un
+      Se muestra una pequeña lista de 6 lugares de honduras, nos muestra información en pequeña escala
+      al tocar cada tarjeta accedemos a la información completa que se presenta en otra pantalla.
+    */
     return(
         <Container>
           <Header searchBar style={styles.headerSearch}>
-        <Item >
-          <Input placeholder="Buscar" value={search} onChangeText={setSearch} style={searchError ? styles.inputError : null} />
-        <Button icon onPress={handlerSearch} style={{backgroundColor:"#021D40",alignSelf:"auto"}}>
-          <Icon name="search" style={{backgroundColor:"#021D40"}}/>
-        </Button>
-        </Item>
-      </Header>
-        <Content style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate("wheatherInfo", {name: Tegucigalpa.location.name})}>    
-          <Card style={styles.cardStyle}>
-          <ImageBackground source ={backgroundImage[code]} style={{width: '100%', height: '100%', flex:1}}>
-              <View style={styles.viewConfiguration}>
-                  <H2 style={styles.Title}>{Tegucigalpa.location.name}</H2>
-                  <Image source={{uri: linkImageTegucigalpa}} style={styles.iconSize}/>
-              </View>
-              <CardItem style={styles.cardItem}>
-                  <Text style={styles.letra}>Estado: {Tegucigalpa.current.condition.text}</Text>
-                  <Text style={styles.letra}>Temperatura: {Tegucigalpa.current.temp_c} C°</Text>
-                  <Text style={styles.letra}>Sensación termica: {Tegucigalpa.current.feelslike_c} C°</Text>                  
-              </CardItem>
-          </ImageBackground>
-          </Card>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("wheatherInfo", {name: Intibuca.location.name})}>
-          <Card style={styles.cardStyle}>
-          <ImageBackground source ={backgroundImage[int]} style={{width: '100%', height: '100%', flex:1}}>
-              <View style={styles.viewConfiguration}>
-                  <H2 style={styles.Title}>{Intibuca.location.name}</H2>
-                  <Image source={{uri: linkImageIntibuca}} style={styles.iconSize}/>
-              </View>
-              <CardItem style={styles.cardItem}>
-                  <Text style={styles.letra}>Estado: {Intibuca.current.condition.text}</Text>
-                  <Text style={styles.letra}>Temperatura: {Intibuca.current.temp_c} C°</Text>
-                  <Text style={styles.letra}>Sensación termica: {Intibuca.current.feelslike_c} C°</Text>
-              </CardItem>
-          </ImageBackground>
-          </Card >
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("wheatherInfo", {name: Siguatepeque.location.name})}>
-          <Card style={styles.cardStyle}>
-          <ImageBackground source ={backgroundImage[sigua]} style={{width: '100%', height: '100%', flex:1}}>
-              <View style={styles.viewConfiguration}>
-                  <H2 style={styles.Title}>{Siguatepeque.location.name}</H2>
-                  <Image source={{uri: linkImageSigua}} style={styles.iconSize}/>
-              </View>
-              <CardItem style={styles.cardItem}>
-                  <Text style={styles.letra}>Estado: {Siguatepeque.current.condition.text}</Text>
-                  <Text style={styles.letra}>Temperatura: {Siguatepeque.current.temp_c} C°</Text>
-                  <Text style={styles.letra}>Sensación termica: {Siguatepeque.current.feelslike_c} C°</Text>                
-            </CardItem>
-          </ImageBackground>    
-          </Card >
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("wheatherInfo", {name: SanPedroSula.location.name})}>
-          <Card style={styles.cardStyle}>
-          <ImageBackground source ={backgroundImage[sps]} style={{width: '100%', height: '100%', flex:1}}>          
-              <View style={styles.viewConfiguration}>
-                  <H2 style={styles.Title}>{SanPedroSula.location.name}</H2>
-                  <Image source={{uri: linkImageSPS}} style={styles.iconSize}/>
-              </View>
-              <CardItem style={styles.cardItem}>
-                  <Text style={styles.letra}>Estado: {SanPedroSula.current.condition.text}</Text>
-                  <Text style={styles.letra}>Temperatura: {SanPedroSula.current.temp_c} C°</Text>
-                  <Text style={styles.letra}>Sensación termica: {SanPedroSula.current.feelslike_c} C°</Text>                 
-              </CardItem>
-              </ImageBackground>                   
-          </Card>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("wheatherInfo", {name: ElParaiso.location.name})}>
-          <Card style={styles.cardStyle}>
-          <ImageBackground source ={backgroundImage[elpar]} style={{width: '100%', height: '100%', flex:1}}>
-              <View style={styles.viewConfiguration}>
-                  <H2 style={styles.Title}>{ElParaiso.location.name}</H2>
-                  <Image source={{uri: linkImageElParaiso}} style={styles.iconSize}/>
-              </View>
-              <CardItem style={styles.cardItem}>
-                  <Text style={styles.letra}>Estado: {ElParaiso.current.condition.text}</Text>
-                  <Text style={styles.letra}>Temperatura: {ElParaiso.current.temp_c} C°</Text>
-                  <Text style={styles.letra}>Sensación termica: {ElParaiso.current.feelslike_c} C°</Text>                  
-              </CardItem>
-          </ImageBackground> 
-          </Card>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("wheatherInfo", {name: Comayagua.location.name})}>
-          <Card style={styles.cardStyle}>
-          <ImageBackground source ={backgroundImage[coma]} style={{width: '100%', height: '100%', flex:1}}>
-              <View style={styles.viewConfiguration}>
-                  <H2 style={styles.Title}>{Comayagua.location.name}</H2>
-                  <Image source={{uri: linkImageComayagua}} style={styles.iconSize}/>
-              </View> 
-              <CardItem style={styles.cardItem}>
-                  <Text style={styles.letra}>Estado: {Comayagua.current.condition.text}</Text>
-                  <Text style={styles.letra}>Temperatura: {Comayagua.current.temp_c} C°</Text>
-                  <Text style={styles.letra}>Sensación termica: {Comayagua.current.feelslike_c} C°</Text>                 
-              </CardItem>
-          </ImageBackground>
-          </Card>
-          </TouchableOpacity>  
+            <Item >
+              <Input placeholder="Buscar" value={search} onChangeText={setSearch} style={searchError ? styles.inputError : null} />
+                <Button icon onPress={handlerSearch} style={styles.button}>
+                  <Icon name="search" style={{backgroundColor:"#021D40"}}/>
+                </Button>
+            </Item>
+          </Header>
+          <Content style={styles.container}>
+            <TouchableOpacity onPress={() => navigation.navigate("weatherInfo", {name: Tegucigalpa.location.name})}>    
+              <Card style={styles.cardStyle}>
+                <ImageBackground source ={backgroundImage[codeTegucigalpa]} style={styles.background}>
+                  <View style={styles.viewConfiguration}>
+                    <H2 style={styles.Title}>{Tegucigalpa.location.name}</H2>
+                    <Image source={{uri: linkImageTegucigalpa}} style={styles.iconSize}/>
+                  </View>
+                  <CardItem style={styles.cardItem}>
+                    <Text style={styles.letra}>Estado: {Tegucigalpa.current.condition.text}</Text>
+                    <Text style={styles.letra}>Temperatura: {Tegucigalpa.current.temp_c} C°</Text>
+                    <Text style={styles.letra}>Sensación termica: {Tegucigalpa.current.feelslike_c} C°</Text>                  
+                  </CardItem>
+                </ImageBackground>
+              </Card>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("weatherInfo", {name: Intibuca.location.name})}>
+              <Card style={styles.cardStyle}>
+                <ImageBackground source ={backgroundImage[codeIntibuca]} style={styles.background}>
+                  <View style={styles.viewConfiguration}>
+                    <H2 style={styles.Title}>{Intibuca.location.name}</H2>
+                    <Image source={{uri: linkImageIntibuca}} style={styles.iconSize}/>
+                  </View>
+                  <CardItem style={styles.cardItem}>
+                    <Text style={styles.letra}>Estado: {Intibuca.current.condition.text}</Text>
+                    <Text style={styles.letra}>Temperatura: {Intibuca.current.temp_c} C°</Text>
+                    <Text style={styles.letra}>Sensación termica: {Intibuca.current.feelslike_c} C°</Text>
+                  </CardItem>
+                </ImageBackground>
+              </Card>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("weatherInfo", {name: Siguatepeque.location.name})}>
+              <Card style={styles.cardStyle}>
+                <ImageBackground source ={backgroundImage[codeSiguatepeque]} style={styles.background}>
+                  <View style={styles.viewConfiguration}>
+                    <H2 style={styles.Title}>{Siguatepeque.location.name}</H2>
+                    <Image source={{uri: linkImageSigua}} style={styles.iconSize}/>
+                  </View>
+                  <CardItem style={styles.cardItem}>
+                    <Text style={styles.letra}>Estado: {Siguatepeque.current.condition.text}</Text>
+                    <Text style={styles.letra}>Temperatura: {Siguatepeque.current.temp_c} C°</Text>
+                    <Text style={styles.letra}>Sensación termica: {Siguatepeque.current.feelslike_c} C°</Text>                
+                  </CardItem>
+                </ImageBackground>    
+              </Card >
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("weatherInfo", {name: SanPedroSula.location.name})}>
+              <Card style={styles.cardStyle}>
+                <ImageBackground source ={backgroundImage[codeSanPedroSula]} style={styles.background}>          
+                  <View style={styles.viewConfiguration}>
+                    <H2 style={styles.Title}>{SanPedroSula.location.name}</H2>
+                    <Image source={{uri: linkImageSPS}} style={styles.iconSize}/>
+                  </View>
+                  <CardItem style={styles.cardItem}>
+                    <Text style={styles.letra}>Estado: {SanPedroSula.current.condition.text}</Text>
+                    <Text style={styles.letra}>Temperatura: {SanPedroSula.current.temp_c} C°</Text>
+                    <Text style={styles.letra}>Sensación termica: {SanPedroSula.current.feelslike_c} C°</Text>                 
+                  </CardItem>
+                </ImageBackground>                   
+              </Card>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("weatherInfo", {name: ElParaiso.location.name})}>
+              <Card style={styles.cardStyle}>
+                <ImageBackground source ={backgroundImage[codeElParaiso]} style={styles.background}>
+                  <View style={styles.viewConfiguration}>
+                    <H2 style={styles.Title}>{ElParaiso.location.name}</H2>
+                    <Image source={{uri: linkImageElParaiso}} style={styles.iconSize}/>
+                  </View>
+                  <CardItem style={styles.cardItem}>
+                    <Text style={styles.letra}>Estado: {ElParaiso.current.condition.text}</Text>
+                    <Text style={styles.letra}>Temperatura: {ElParaiso.current.temp_c} C°</Text>
+                    <Text style={styles.letra}>Sensación termica: {ElParaiso.current.feelslike_c} C°</Text>                  
+                  </CardItem>
+                </ImageBackground> 
+              </Card>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("weatherInfo", {name: Comayagua.location.name})}>
+              <Card style={styles.cardStyle}>
+                <ImageBackground source ={backgroundImage[codeComayagua]} style={styles.background}>
+                  <View style={styles.viewConfiguration}>
+                    <H2 style={styles.Title}>{Comayagua.location.name}</H2>
+                    <Image source={{uri: linkImageComayagua}} style={styles.iconSize}/>
+                  </View> 
+                  <CardItem style={styles.cardItem}>
+                    <Text style={styles.letra}>Estado: {Comayagua.current.condition.text}</Text>
+                    <Text style={styles.letra}>Temperatura: {Comayagua.current.temp_c} C°</Text>
+                    <Text style={styles.letra}>Sensación termica: {Comayagua.current.feelslike_c} C°</Text>                 
+                  </CardItem>
+                </ImageBackground>
+              </Card>
+            </TouchableOpacity>  
           </Content>
-          </Container>
+        </Container>
     
-    );
+      );
 };
-  // Estilos de nuestra pantalla
+  // Estilos que afectan a las distintas distribuciones de las etiquetas utilizadas en pantalla
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       marginTop:10,
       marginBottom:10,
       backgroundColor:"#325A73",
-   },
+    },
     input: {
       margin: 15,
     },
@@ -444,6 +487,15 @@ const styles = StyleSheet.create({
       marginBottom:'2%',
       marginLeft:'2%',
       marginRight:'0.5%'
+    },
+    button:{
+      backgroundColor:"#021D40",
+      alignSelf:"auto"
+    },
+    background:{
+      width: '100%', 
+      height: '100%', 
+      flex:1,
     }
   });
 
