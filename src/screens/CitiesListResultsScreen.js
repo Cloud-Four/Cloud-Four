@@ -51,6 +51,9 @@ const CitiesListResults = ({ route, navigation }) => {
   // Creación de la pantalla y despliegue de los posibles resultados
   return(
     <Container>
+      {/* Se muestra el resultado de la busqueda realizada por el usario.
+          Los resultados se muestran en tarjetas independientes.
+          Dentro de cada tarjeta se muestra una informacion general de la ciudad. */}
       <Header style={styles.titleContainer}><Text style={styles.Title}>Búsquedas encontradas:</Text>
       </Header>
       <FlatList style={styles.background}
@@ -60,7 +63,7 @@ const CitiesListResults = ({ route, navigation }) => {
         renderItem={({ item }) => {
           return (
             <View>
-             <TouchableOpacity onPress={() => navigation.navigate("wheatherInfo", {name: item.name})}>
+             <TouchableOpacity onPress={() => navigation.navigate("weatherInfo", {name: item.name})}>
                 <Card>
                   <CardItem style={{backgroundColor: "#688EA6"}}>
                     <Body>

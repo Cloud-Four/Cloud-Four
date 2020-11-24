@@ -131,8 +131,10 @@ const WheatherInfo = ({route}) => {
   return (
     // Contenedor donde se cargaran todos los componentes de la pantalla
     <Content style={{}}>
+      {/* Se muestra un fondo de pantalla, dependiendo del estado climatico */}
       <ImageBackground source ={backgroundImage[code]} style={{ width: width, height: height}}>
         <Text style={styles.Title}>{cities.location.name}</Text>
+        {/* Se muestra la información mas importante del clima */}
         <View style={styles.pricipalContainer}>
           <Image source={{uri: linkImage}} style={{width: 120, height: 120}}/>
           <Text style={{fontSize:30, color: "#F7F3EC",fontFamily: "Goldman-Regular"}}>{cities.current.temp_c}°c</Text>
@@ -142,7 +144,7 @@ const WheatherInfo = ({route}) => {
           <Text style={styles.principalData}>Sensación térmica {cities.current.feelslike_c}°</Text>
           <Text style={styles.principalData}>{new Date().getDate()}/{new Date().getMonth() + 1}/{new Date().getFullYear()}</Text>
         </View>
-
+        {/* Se muestra información general del clima de la ciudad */}
         <View style={styles.secundaryContainer}>
           <View>
             <Text style={styles.secundaryData}>Humedad:</Text>
