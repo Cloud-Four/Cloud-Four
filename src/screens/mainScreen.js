@@ -326,6 +326,15 @@ const MainScreen = ( { navigation }) => {
                 </Button>
             </Item>
           </Header>
+          {/* Contenedores que se encargan de tener tarjetas que muestran la información del estado del tiempo 
+              de algunas zonas de Honduras.
+              Tiene la función para poder navegar a otra pantalla donde muestra la información de forma completa.
+              Solo se muestra un pequeño listado con fondo dínamico.
+
+              Todas las tarjetas presentan la misma funcionalidad con la diferencia de la variable de llamado que
+              puede ser:
+              Tegucigalpa, Intibuca, SanPedroSula, ElParaiso, Comayagua, Siguatepeque.
+          */}
           <Content style={styles.container}>
             <TouchableOpacity onPress={() => navigation.navigate("weatherInfo", {name: Tegucigalpa.location.name})}>    
               <Card style={styles.cardStyle}>
