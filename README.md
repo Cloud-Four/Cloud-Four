@@ -1,6 +1,6 @@
-<img src="assets/icon.png">
 # Cloud-Four
-<img src="assets/splash.png">
+<img src="assets/icon.png">
+<img src="assets/splash.png" height=200>
 
 Aplicación diseñada para conectarse a la API de weatherapi.com y mostrar información sobre el clima actual de la ciudad seleccionada, también cuenta con una opción de búsqueda por si la ciudad deseada no se muestra en la pantalla principal.
 
@@ -43,7 +43,7 @@ WeatherAPI key: <br>
 Para que la aplicación pueda funcionar, 
 se necesita una API key válida para que te puedas comunicar con la base de datos de WeatherAPI. Cloud-Four implementa la versión 1 de dicha API.
 
-Debes crear una cuenta utilizando el siguiente enlace:<a href="https://www.weatherapi.com/signup.aspx ">WeatherAPI</a>.
+Debes crear una cuenta utilizando el siguiente enlace: <code><a href="https://www.weatherapi.com/signup.aspx ">WeatherAPI</a><code>.
 
 Una vez que tengas tu API key, debes crear el archivo <code>enviroment.js</code> en la raíz del directorio y configurarlo de la siguiente manera:
 <br>
@@ -71,13 +71,24 @@ export default getEnvVars;
 
 <br>
 
-# Instalación: <br>
-- Primero debe instalar Node.js 
-Utilice el siguiente enlace: <a src="https://nodejs.org/en/download/">Node.js</a>
+# Instalación: 
+- Primero debe instalar Node.js <br>
+Utilice el siguiente enlace: <br>
+<code><a href="https://nodejs.org/en/download/">Node.js</a></code>
 
-- Instalar los recursos de Expo
-<code>npm install</code>
+- Instalar los recursos de Expo <br>
+<code>npm install</code> <br>
 <code>npm install -g expo-cli exp</code>
 
 - Iniciar Expo Metro: <br>
 <code>expo start</code>
+
+# Fuentes:
+- Descarga de fuentes <br>
+https://fonts.google.com/?preview.text_type=custom&preview.text=windows%20
+
+- Como utilizar rutas de imágenes en el proyecto <br>
+https://riptutorial.com/es/react-native/example/31757/usando-variable-para-ruta-de-imagen
+
+- Configurar correctamente las fuentes <br>
+https://docs.expo.io/guides/using-custom-fonts/
