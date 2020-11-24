@@ -1,13 +1,13 @@
 # Cloud-Four
-<img src="assets/icon.png">
-<img src="assets/splash.png" height=500>
+<p align="center"><img src="assets/icon.png"></p><br>
+<p align="center"><img src="assets/splash.png" height=500></p>
 
 Aplicación diseñada para conectarse a la API de weatherapi.com y mostrar información sobre el clima actual de la ciudad seleccionada, también cuenta con una opción de búsqueda por si la ciudad deseada no se muestra en la pantalla principal.
 
 # Imágenes del proyecto
-<p align="center"><img src="https://cdn.discordapp.com/attachments/689137149441867776/780620842815455257/Android_Emulator_-_Cloud-Four_5554_11_23_2020_8_00_57_PM.png" height=400></p><br>
-<p align="center"><img src="https://cdn.discordapp.com/attachments/689137149441867776/780620839405617172/Android_Emulator_-_Cloud-Four_5554_11_23_2020_8_01_26_PM.png" height=400></p><br>
-<p align="center"><img src="https://cdn.discordapp.com/attachments/689137149441867776/780620844648628264/Android_Emulator_-_Cloud-Four_5554_11_23_2020_8_04_22_PM.png" height=400></p><br>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/689137149441867776/780620842815455257/Android_Emulator_-_Cloud-Four_5554_11_23_2020_8_00_57_PM.png" height=500></p><br>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/689137149441867776/780620839405617172/Android_Emulator_-_Cloud-Four_5554_11_23_2020_8_01_26_PM.png" height=500></p><br>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/689137149441867776/780620844648628264/Android_Emulator_-_Cloud-Four_5554_11_23_2020_8_04_22_PM.png" height=500></p><br>
 
 # Tecnologías utilizadas
 
@@ -84,11 +84,11 @@ Utilice el siguiente enlace: <br>
 <code>expo start</code>
 
 # Fuentes:
-- Descarga de fuentes <br>
+- Descarga de fuentes de texto<br>
 https://fonts.google.com/?preview.text_type=custom&preview.text=windows%20
 
 - Como utilizar rutas de imágenes en el proyecto <br>
 https://riptutorial.com/es/react-native/example/31757/usando-variable-para-ruta-de-imagen
 
-- Configurar correctamente las fuentes <br>
+- Configuración correcta de las fuentes de texto en la aplicación <br>
 https://docs.expo.io/guides/using-custom-fonts/
