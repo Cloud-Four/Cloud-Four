@@ -22,6 +22,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 const { apiUrl, apiKey } = getEnvVars();
 const MainScreen = ( { navigation }) => {
     // Obtener fuentes para la pantalla
+    // Link de documentación: https://docs.expo.io/guides/using-custom-fonts/
     let [fontsLoaded] = useFonts({
       'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
       'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
