@@ -1,25 +1,30 @@
+// Importar los módulos necesarios para la creación de la pantalla.
 import React, { useEffect, useState} from "react";
 import { Dimensions, ImageBackground, View, StyleSheet, Image } from "react-native";
-import { Content, Text, H1, Spinner, Card, Row } from "native-base";
+import { Content, Text, Spinner} from "native-base";
 import backend from "../api/backend";
 import getEnvVars from "../../enviroment";
 import { useFonts } from "expo-font";
 
+// Variables para el uso de la api.
 const { apiUrl, apiKey } = getEnvVars();
+
+// Variables para obtener el alto y el ancho de la pantalla del dispositivo.
 const { width, height } = Dimensions.get("window");
 
-const WheatherInfo = ({route, navigation}) => {
-  // Obtener fuentes para la pantalla
+const WheatherInfo = ({route}) => {
+
+  // Obtener las fuentes que se utilizaran en la pantalla.
   let [fontsLoaded] = useFonts({
     'Goldman-Bold': require("../../assets/fonts/Goldman-Bold.ttf"),
     'Goldman-Regular': require("../../assets/fonts/Goldman-Regular.ttf"),
   });
 
-  // Obtener el nombre del lugar
+  // Obtener el nombre del lugar seleccionado por el usuario.
   const { name } = route.params;
   const [cities, setCities] = useState(null);
-  const [error, setError] = useState(false);
 
+  // Se obtienen los resultados de la consulta, dependiendo de la ciudad seleccionada.
   const getWheaterInfo = async () => { 
     try {
       const response = await backend.get(`${apiUrl}forecast.json?key=${apiKey}&q=${name}&days=1&lang=es`);
@@ -29,11 +34,13 @@ const WheatherInfo = ({route, navigation}) => {
     }
   };
 
-
+  // Hook de efecto
   useEffect(() => {
     getWheaterInfo();
   }, []);
 
+  // En caso de no encontrar resultados o tardar en encontrarlos se carga 
+  // la siguiente pantalla temporal.
   if (!cities ||!fontsLoaded) {
     return (
       <View style={{flex: 1, justifyContent: "center", backgroundColor:"#325A73"}}>
@@ -42,12 +49,11 @@ const WheatherInfo = ({route, navigation}) => {
     )
   }
 
-  // Variable que captura el link de la imagen
+  // Variable que captura el link del icono de estado del tiempo
   let linkImage = `http:${cities.current.condition.icon}`;
 
   
-  // Asignar fondo de pantalla dependiendo del clima
-
+  // Listados de fondos de pantalla dependiendo del clima
   const backgroundImage = {
     "1000-1": require("../../assets/background/1000-1.jpg"),
     "1000": require("../../assets/background/1000.jpg"),
@@ -103,11 +109,9 @@ const WheatherInfo = ({route, navigation}) => {
   }
   let code = cities.current.condition.code ;
 
-  // variable que captura el día puede ser 1 o 0
-  // 1 es día, 0 es noche
+  // variable que cambia el fondo de pantalla si es de noche, en algunas ocasiones
   let day = cities.current.is_day;
   if(day === 0){
-    // El fondo de pantalla muestra una noche estrellada
     if(code === 1000)
     {
       code = "1000-1";
@@ -123,8 +127,9 @@ const WheatherInfo = ({route, navigation}) => {
   }
     
 
-
+  // Creación de la pantalla
   return (
+    // Contenedor donde se cargaran todos los componentes de la pantalla
     <Content style={{}}>
       <ImageBackground source ={backgroundImage[code]} style={{ width: width, height: height}}>
         <Text style={styles.Title}>{cities.location.name}</Text>
@@ -163,6 +168,7 @@ const WheatherInfo = ({route, navigation}) => {
 
 // Estilos de la pantalla
 const styles = StyleSheet.create({
+  // Estilo del titulo de la pantalla
   Title:{
     fontFamily: 'Goldman-Bold',
     alignSelf: "center",
@@ -173,11 +179,13 @@ const styles = StyleSheet.create({
     textShadowColor: "#021D40",
     textShadowRadius: 20,
   },
+  // Estilos del contenedor de la informacion general del clima de la ciudad
   pricipalContainer:{
     alignItems: "center",
     backgroundColor: "rgba(50,90,115,0.5)",
     borderRadius: 500,
   },
+  // Estilo del contenedor con infomación adicional del clima de la ciudad
   secundaryContainer:{
     flex: 1,
     alignItems: "center",
@@ -188,11 +196,13 @@ const styles = StyleSheet.create({
     marginBottom: '2%',
     backgroundColor: "rgba(50,90,115,0.5)",
   },
+  // Estilo del texto del contenedor principal
   principalData:{
     color: "#F7F3EC",
     fontFamily: "Goldman-Regular",
     fontSize: 18,
   },
+  // Estilo del texto del contenedor secundario
   secundaryData:{
     marginLeft: '10%',
     paddingTop: '2%',
@@ -200,7 +210,6 @@ const styles = StyleSheet.create({
     fontFamily: "Goldman-Regular",
     fontSize: 18,
   },
-
 });
 
 export default WheatherInfo;
